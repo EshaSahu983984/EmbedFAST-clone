@@ -1,0 +1,3809 @@
+{
+  "openapi": "3.0.1",
+  "info": {
+    "title": "MAQ.BIHub.API - V1",
+    "version": "v1"
+  },
+  "paths": {
+    "/assets": {
+      "get": {
+        "tags": [
+          "Asset"
+        ],
+        "summary": "Get all the assets",
+        "parameters": [
+          {
+            "name": "tenantId",
+            "in": "query",
+            "description": "tenantId of type GUID",
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successfully fetched assets",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/Asset"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Asset"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Asset"
+                }
+              }
+            }
+          },
+          "204": {
+            "description": "No content available in the workspace"
+          },
+          "500": {
+            "description": "Internal server error"
+          },
+          "401": {
+            "description": "Unauthorized"
+          }
+        }
+      }
+    },
+    "/reports/{reportId}/bookmarks": {
+      "get": {
+        "tags": [
+          "Bookmark"
+        ],
+        "summary": "Get all bookmarks of a report",
+        "parameters": [
+          {
+            "name": "reportId",
+            "in": "path",
+            "description": "It expects a \"reportId\" of type GUID",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Bookmarks successfully fetched",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Bookmark"
+                  }
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Bookmark"
+                  }
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Bookmark"
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "User don't have access",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Report Id does not exist",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Bookmark"
+        ],
+        "summary": "Create a new bookmark of a report",
+        "parameters": [
+          {
+            "name": "reportId",
+            "in": "path",
+            "description": "It expects a \"reportId\" of type GUID",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "requestBody": {
+          "description": "Provides (Modified by user Id, Bookmark State, Display Name, Type (Personal or Shared) ) in request body",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/BookmarkView"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/BookmarkView"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/BookmarkView"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "Bookmark created successfully, returns new Bookmark object",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/Bookmark"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Bookmark"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Bookmark"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bookmark with similar configurations already exists",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Either report does not exist or User don't have access",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        }
+      }
+    },
+    "/reports/{reportId}/bookmarks/{bookmarkId}": {
+      "get": {
+        "tags": [
+          "Bookmark"
+        ],
+        "summary": "Get a bookmark of a report",
+        "parameters": [
+          {
+            "name": "reportId",
+            "in": "path",
+            "description": "It expects a \"reportId\" of type GUID",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "bookmarkId",
+            "in": "path",
+            "description": "It expects a \"bookmarkId\" of type GUID",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Bookmark successfully fetched",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/Bookmark"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Bookmark"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Bookmark"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "User don't have access",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "BookmarkId does not exist",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "Bookmark"
+        ],
+        "summary": "Update the bookmark of a report",
+        "parameters": [
+          {
+            "name": "bookmarkId",
+            "in": "path",
+            "description": "It expects a \"bookmarkId\" of type GUID",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "reportId",
+            "in": "path",
+            "description": "It expects a \"reportId\" of type GUID",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "requestBody": {
+          "description": "The updated bookmark information",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateBookmarkModel"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateBookmarkModel"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateBookmarkModel"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/Bookmark"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Bookmark"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Bookmark"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "User don't have access",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Bookmark Id does not exist",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error"
+          },
+          "202": {
+            "description": "Bookmark successfully updated"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Bookmark"
+        ],
+        "summary": "Delete the bookmark of a report",
+        "parameters": [
+          {
+            "name": "reportId",
+            "in": "path",
+            "description": "It expects a \"reportId\" of type GUID",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "bookmarkId",
+            "in": "path",
+            "description": "It expects a \"bookmarkId\" of type GUID",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseModel"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseModel"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseModel"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "User don't have access",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Bookmark Id does not exist",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error"
+          },
+          "202": {
+            "description": "Bookmark successfully deleted"
+          }
+        }
+      }
+    },
+    "/branding": {
+      "get": {
+        "tags": [
+          "Branding"
+        ],
+        "summary": "Get branding details",
+        "responses": {
+          "200": {
+            "description": "Returns branding details from DB",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/BrandingModel"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BrandingModel"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BrandingModel"
+                }
+              }
+            }
+          },
+          "204": {
+            "description": "Success"
+          },
+          "500": {
+            "description": "Server Error"
+          }
+        }
+      }
+    },
+    "/dashboards": {
+      "get": {
+        "tags": [
+          "Dashboard"
+        ],
+        "summary": "Get all dashboards",
+        "parameters": [
+          {
+            "name": "tenantId",
+            "in": "query",
+            "description": "tenantId of type GUID",
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Dashboards successfully fetched",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/ReportsFromDb"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ReportsFromDb"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ReportsFromDb"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error"
+          },
+          "401": {
+            "description": "Unauthorized"
+          }
+        }
+      }
+    },
+    "/dashboards/{dashboardId}": {
+      "get": {
+        "tags": [
+          "Dashboard"
+        ],
+        "summary": "Get dashboard",
+        "parameters": [
+          {
+            "name": "tenantId",
+            "in": "query",
+            "description": "tenantId of type GUID",
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "dashboardId",
+            "in": "path",
+            "description": "UUID of dashboard",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Dashboard successfully fetched",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/ReportsFromDb"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ReportsFromDb"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ReportsFromDb"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Dashboard with provided dashboard ID doesn't exist",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error"
+          },
+          "401": {
+            "description": "Unauthorized"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Dashboard"
+        ],
+        "summary": "Delete the dashboard",
+        "parameters": [
+          {
+            "name": "dashboardId",
+            "in": "path",
+            "description": "UUID of dashboard",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Dashboard deleted successfully",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseModel"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseModel"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseModel"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error"
+          },
+          "404": {
+            "description": "Dashboard with provided Id doesn't exist"
+          },
+          "401": {
+            "description": "Unauthorized"
+          }
+        }
+      }
+    },
+    "/datasets": {
+      "get": {
+        "tags": [
+          "Datasets"
+        ],
+        "summary": "Get all datasets",
+        "parameters": [
+          {
+            "name": "tenantId",
+            "in": "query",
+            "description": "tenantId of type GUID",
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Datasets fetched successfully",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/ReportsFromDb"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ReportsFromDb"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ReportsFromDb"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error"
+          },
+          "401": {
+            "description": "Unauthorized"
+          }
+        }
+      }
+    },
+    "/datasets/{datasetId}": {
+      "get": {
+        "tags": [
+          "Datasets"
+        ],
+        "summary": "Get dataset",
+        "parameters": [
+          {
+            "name": "tenantId",
+            "in": "query",
+            "description": "tenantId of type GUID",
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "datasetId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Dataset fetched successfully",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/ReportsFromDb"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ReportsFromDb"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ReportsFromDb"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Dataset with provided Id doesn't exist",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error"
+          },
+          "401": {
+            "description": "Unauthorized"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Datasets"
+        ],
+        "summary": "Delete the dataset",
+        "parameters": [
+          {
+            "name": "datasetId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Dataset deleted successfully",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseModel"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseModel"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseModel"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error"
+          },
+          "404": {
+            "description": "Dataset with provided Id doesn't exist"
+          },
+          "401": {
+            "description": "Unauthorized"
+          }
+        }
+      }
+    },
+    "/reports/generateEmbedToken": {
+      "post": {
+        "tags": [
+          "Embed Token"
+        ],
+        "summary": "Return embed token for all the reports",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/EmbedConfigReportRequestBody"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/EmbedConfigReportRequestBody"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/EmbedConfigReportRequestBody"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Returns the Embed Token",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/EmbedTokenResponse"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/EmbedTokenResponse"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/EmbedTokenResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        }
+      }
+    },
+    "/dashboards/generateEmbedToken": {
+      "post": {
+        "tags": [
+          "Embed Token"
+        ],
+        "summary": "Returns embed token for dashboard",
+        "requestBody": {
+          "description": "",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/DashboardEmbedConfiguration"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/DashboardEmbedConfiguration"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/DashboardEmbedConfiguration"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successfully generated embed token",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/EmbedToken"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/EmbedToken"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/EmbedToken"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        }
+      }
+    },
+    "/datasets/generateEmbedTokenForCreate": {
+      "post": {
+        "tags": [
+          "Embed Token"
+        ],
+        "summary": "Returns embed token for creating report",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/DatasetEmbedConfiguration"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/DatasetEmbedConfiguration"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/DatasetEmbedConfiguration"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successfully generated embed token",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/EmbedToken"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/EmbedToken"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/EmbedToken"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        }
+      }
+    },
+    "/assetsWithEmbedToken": {
+      "post": {
+        "tags": [
+          "Embed Token"
+        ],
+        "summary": "Returns embed token with assets",
+        "parameters": [
+          {
+            "name": "tenantId",
+            "in": "query",
+            "description": "tenantId of type GUID",
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successfully generated embed token",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/AssetsWithEmbedToken"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AssetsWithEmbedToken"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AssetsWithEmbedToken"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        }
+      }
+    },
+    "/assetsWithEmbedTokenV2": {
+      "post": {
+        "tags": [
+          "Embed Token"
+        ],
+        "summary": "Returns embed token with assets",
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/AssetWithEmbedTokenV2"
+                  }
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/AssetWithEmbedTokenV2"
+                  }
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/AssetWithEmbedTokenV2"
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Server Error"
+          }
+        }
+      }
+    },
+    "/exportStatus": {
+      "post": {
+        "tags": [
+          "Export"
+        ],
+        "summary": "Get the status of export",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ExportStatusRequestParams"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ExportStatusRequestParams"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/ExportStatusRequestParams"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Returns the status of export",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/ExportStatus"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ExportStatus"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ExportStatus"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized Access",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Report Id does not exist",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        }
+      }
+    },
+    "/export": {
+      "post": {
+        "tags": [
+          "Export"
+        ],
+        "summary": "Get the export id",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ExportReportConfiguration"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ExportReportConfiguration"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/ExportReportConfiguration"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successfully returned the Export ID",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/Export"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Export"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Export"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized Access",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Report Id does not exist",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        }
+      }
+    },
+    "/downloadFile": {
+      "post": {
+        "tags": [
+          "Export"
+        ],
+        "summary": "Download the exported file",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ExportStatusRequestParams"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ExportStatusRequestParams"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/ExportStatusRequestParams"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successfully downloaded file",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/MemoryStream"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/MemoryStream"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/MemoryStream"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized Access",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Report Id does not exist",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        }
+      }
+    },
+    "/reports": {
+      "get": {
+        "tags": [
+          "Report"
+        ],
+        "summary": "Get reports or dashboards or paginated reports",
+        "parameters": [
+          {
+            "name": "tenantId",
+            "in": "query",
+            "description": "tenantId of type GUID",
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "type",
+            "in": "query",
+            "description": "One of \"All\", \"Report\" or \"Paginated\"",
+            "schema": {
+              "$ref": "#/components/schemas/ReportTypeEnum"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Returns all the embed reports",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/ReportsFromDb"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ReportsFromDb"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ReportsFromDb"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "If the type is empty"
+          },
+          "401": {
+            "description": "Unauthorized"
+          }
+        }
+      }
+    },
+    "/reports/{reportId}": {
+      "get": {
+        "tags": [
+          "Report"
+        ],
+        "summary": "Get the report",
+        "parameters": [
+          {
+            "name": "tenantId",
+            "in": "query",
+            "description": "tenantId of type GUID",
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "reportId",
+            "in": "path",
+            "description": "Report Id to provided to get the report",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/ReportsFromDb"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ReportsFromDb"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ReportsFromDb"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Invalid report Id"
+          },
+          "401": {
+            "description": "Unauthorized"
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Report"
+        ],
+        "summary": "Clone the report",
+        "parameters": [
+          {
+            "name": "reportId",
+            "in": "path",
+            "description": "The report Id",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "requestBody": {
+          "description": "Provide (Report Name, Target Model Id, Target workspace Id) in Request Body",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CloneReportRequest"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CloneReportRequest"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/CloneReportRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/Report"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Report"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Report"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Invalid report Id"
+          },
+          "401": {
+            "description": "Unauthorized"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Report"
+        ],
+        "summary": "Delete the report",
+        "parameters": [
+          {
+            "name": "reportId",
+            "in": "path",
+            "description": "Report Id will be passed in router",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseModel"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseModel"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseModel"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Invalid report Id"
+          },
+          "401": {
+            "description": "Unauthorized"
+          }
+        }
+      }
+    },
+    "/reports/{reportId}/save": {
+      "post": {
+        "tags": [
+          "Report"
+        ],
+        "summary": "Save the report",
+        "parameters": [
+          {
+            "name": "reportId",
+            "in": "path",
+            "description": "Id of new Report",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Created",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/ReportsFromDb"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ReportsFromDb"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ReportsFromDb"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Invalid report Id"
+          }
+        }
+      }
+    },
+    "/reports/{reportId}/subscriptions": {
+      "get": {
+        "tags": [
+          "Report Subscription"
+        ],
+        "summary": "Get all the subscriptions for a user",
+        "parameters": [
+          {
+            "name": "reportId",
+            "in": "path",
+            "description": "ReportId of type GUID",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/ReportSubscriptionGet"
+                  }
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/ReportSubscriptionGet"
+                  }
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/ReportSubscriptionGet"
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Server Error"
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Report Subscription"
+        ],
+        "summary": "Create a new subscription",
+        "parameters": [
+          {
+            "name": "reportId",
+            "in": "path",
+            "description": "ReportId of type GUID",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "requestBody": {
+          "description": "ReportSubscriptionGet of type ReportSubscriptionPost",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ReportSubscriptionPost"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ReportSubscriptionPost"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/ReportSubscriptionPost"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Success",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseModel"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseModel"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseModel"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Server Error"
+          }
+        }
+      }
+    },
+    "/reports/{reportId}/subscriptions/{reportSubscriptionId}": {
+      "put": {
+        "tags": [
+          "Report Subscription"
+        ],
+        "summary": "Update an existing subscription",
+        "parameters": [
+          {
+            "name": "reportSubscriptionId",
+            "in": "path",
+            "description": "Report subscription id of type GUID",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "reportId",
+            "in": "path",
+            "description": "ReportId of type GUID",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "requestBody": {
+          "description": "Report subscription of type ReportSubscriptionPost",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ReportSubscriptionPost"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ReportSubscriptionPost"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/ReportSubscriptionPost"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseModel"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseModel"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseModel"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Server Error"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Report Subscription"
+        ],
+        "summary": "Delete an existing subscription",
+        "parameters": [
+          {
+            "name": "reportSubscriptionId",
+            "in": "path",
+            "description": "Report subscription id of type GUID",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "reportId",
+            "in": "path",
+            "description": "ReportId of type GUID",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseModel"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseModel"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseModel"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Server Error"
+          }
+        }
+      }
+    },
+    "/sendemail/{reportSubscriptionId}": {
+      "post": {
+        "tags": [
+          "Report Subscription"
+        ],
+        "summary": "Send an email now",
+        "parameters": [
+          {
+            "name": "reportSubscriptionId",
+            "in": "path",
+            "description": "Report subscription id of type GUID",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseModel"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseModel"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseModel"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Server Error"
+          }
+        }
+      }
+    },
+    "/themes": {
+      "get": {
+        "tags": [
+          "Theme"
+        ],
+        "summary": "Get all the themes",
+        "responses": {
+          "200": {
+            "description": "Fetched themes successfully",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Theme"
+                  }
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Theme"
+                  }
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Theme"
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        }
+      }
+    },
+    "/themes/{themeId}": {
+      "get": {
+        "tags": [
+          "Theme"
+        ],
+        "summary": "Get theme",
+        "parameters": [
+          {
+            "name": "themeId",
+            "in": "path",
+            "description": "Id (Guid) of theme",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Fetched theme successfully",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/Theme"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Theme"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Theme"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        }
+      }
+    },
+    "/userDetail": {
+      "get": {
+        "tags": [
+          "User"
+        ],
+        "summary": "Get the user",
+        "responses": {
+          "200": {
+            "description": "Successfully fetched user from the user table in the database",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserDetailView"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserDetailView"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserDetailView"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "If the user doesn't exist in the user table",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized Access",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal SQL Server Error"
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "Asset": {
+        "type": "object",
+        "properties": {
+          "reports": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ReportsFromDb"
+            },
+            "description": "A public property of type list of ReportsFromDb that has both a getter and a setter method, which allows for getting and setting the value of the Reports property.",
+            "nullable": true
+          },
+          "dashboards": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ReportsFromDb"
+            },
+            "description": "A public property of type list of ReportsFromDb that has both a getter and a setter method, which allows for getting and setting the value of the Dashboards property.",
+            "nullable": true
+          },
+          "datasets": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ReportsFromDb"
+            },
+            "description": "A public property of type list of ReportsFromDb that has both a getter and a setter method, which allows for getting and setting the value of the Datasets property.",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false,
+        "description": "Class for storing list of reports, dashboards, datasets fetched from database."
+      },
+      "AssetDetailView": {
+        "type": "object",
+        "properties": {
+          "assetId": {
+            "type": "string",
+            "description": "A public property of type nullable Guid (a unique identifier) that has both a getter and a setter method, which allows for getting and setting the value of the AssetId property.",
+            "format": "uuid",
+            "nullable": true
+          },
+          "assetName": {
+            "type": "string",
+            "description": "A public property of type nullable string that has both a getter and a setter method, which allows for getting and setting the value of the AssetName property.",
+            "nullable": true
+          },
+          "assetType": {
+            "type": "string",
+            "description": "A public property of type nullable string that has both a getter and a setter method, which allows for getting and setting the value of the AssetType property.",
+            "nullable": true
+          },
+          "rlsRole": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "A public property of type nullable list of strings that has both a getter and a setter method, which allows for getting and setting the value of the RlsRole property.",
+            "nullable": true
+          },
+          "roleId": {
+            "type": "string",
+            "description": "A public property of type nullable Guid (a unique identifier) that has both a getter and a setter method, which allows for getting and setting the value of the RoleId property.",
+            "format": "uuid",
+            "nullable": true
+          },
+          "roleName": {
+            "type": "string",
+            "description": "A public property of type nullable string that has both a getter and a setter method, which allows for getting and setting the value of the RoleName property.",
+            "nullable": true
+          },
+          "canCreate": {
+            "type": "boolean",
+            "description": "A public property of type nullable bool that has both a getter and a setter method, which allows for getting and setting the value of the CanCreate property.",
+            "nullable": true
+          },
+          "canEdit": {
+            "type": "boolean",
+            "description": "A public property of type nullable bool that has both a getter and a setter method, which allows for getting and setting the value of the CanEdit property.",
+            "nullable": true
+          },
+          "canExport": {
+            "type": "boolean",
+            "description": "A public property of type nullable bool that has both a getter and a setter method, which allows for getting and setting the value of the CanExport property.",
+            "nullable": true
+          },
+          "canView": {
+            "type": "boolean",
+            "description": "A public property of type nullable bool that has both a getter and a setter method, which allows for getting and setting the value of the CanView property.",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false,
+        "description": "Class for storing details of an asset."
+      },
+      "AssetsWithEmbedToken": {
+        "type": "object",
+        "properties": {
+          "embedToken": {
+            "$ref": "#/components/schemas/EmbedTokenResponse"
+          },
+          "assets": {
+            "$ref": "#/components/schemas/AssetWithDashboardEmbedToken"
+          }
+        },
+        "additionalProperties": false,
+        "description": "Class for representing the assets with embed token."
+      },
+      "AssetWithDashboardEmbedToken": {
+        "type": "object",
+        "properties": {
+          "reports": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ReportsFromDb"
+            },
+            "description": "A public property of type list of ReportsFromDb that has both a getter and a setter method, which allows for getting and setting the value of the Reports property.",
+            "nullable": true
+          },
+          "datasets": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ReportsFromDb"
+            },
+            "description": "A public property of type list of ReportsFromDb that has both a getter and a setter method, which allows for getting and setting the value of the Datasets property.",
+            "nullable": true
+          },
+          "dashboards": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/DashboardWithEmbedToken"
+            },
+            "description": "A public property of type list of ReportsFromDb that has both a getter and a setter method, which allows for getting and setting the value of the Dashboards property.",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false,
+        "description": "Class for storing List of reports, datasets and dashboards along with an embed token."
+      },
+      "AssetWithEmbedTokenV2": {
+        "type": "object",
+        "properties": {
+          "token": {
+            "type": "string",
+            "description": "A public property of type string that has both a getter and a setter method, which allows for getting and setting the value of the Token property.",
+            "nullable": true
+          },
+          "tokenId": {
+            "type": "string",
+            "description": "A public property of type Guid (a unique identifier) that has both a getter and a setter method, which allows for getting and setting the value of the TokenId property.",
+            "format": "uuid"
+          },
+          "expiration": {
+            "type": "string",
+            "description": "A public property of type DateTime that has both a getter and a setter method, which allows for getting and setting the value of the Expiration property.",
+            "format": "date-time"
+          },
+          "datasetWithRls": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "description": "A public property of type list of Guid that has both a getter and a setter method, which allows for getting and setting the value of the DatasetWithRls property.",
+            "nullable": true
+          },
+          "warningMessage": {
+            "type": "string",
+            "description": "A public property of type string that has both a getter and a setter method, which allows for getting and setting the value of the WarningMessage property.",
+            "nullable": true
+          },
+          "reports": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "description": "A public property of List that has both a getter and a setter method, which allows for getting and setting the value of the Reports property.",
+            "nullable": true
+          },
+          "datasets": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "description": "A public property of List that has both a getter and a setter method, which allows for getting and setting the value of the Datasets property.",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "Bookmark": {
+        "type": "object",
+        "properties": {
+          "reportId": {
+            "type": "string",
+            "description": "A public property of type Guid (a unique identifier) that has both a getter and a setter method, which allows for getting and setting the value of the ReportId property.",
+            "format": "uuid"
+          },
+          "modifiedByUserId": {
+            "type": "string",
+            "description": "A public property of type string that has both a getter and a setter method, which allows for getting and setting the value of the ModifiedByUserId property.",
+            "nullable": true
+          },
+          "bookmarkState": {
+            "type": "string",
+            "description": "A public property of type string that has both a getter and a setter method, which allows for getting and setting the value of the BookmarkState property.",
+            "nullable": true
+          },
+          "displayName": {
+            "type": "string",
+            "description": "A public property of type string that has both a getter and a setter method, which allows for getting and setting the value of the DisplayName property.",
+            "nullable": true
+          },
+          "reportBookmarkId": {
+            "type": "string",
+            "description": "A public property of type Guid (a unique identifier) that has both a getter and a setter method, which allows for getting and setting the value of the ReportBookmarkId property.",
+            "format": "uuid"
+          },
+          "type": {
+            "type": "string",
+            "description": "A public property of type string that has both a getter and a setter method, which allows for getting and setting the value of the Type property.",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false,
+        "description": "Class for storing information about bookmark."
+      },
+      "BookmarkView": {
+        "type": "object",
+        "properties": {
+          "bookmarkState": {
+            "type": "string",
+            "description": "A public property of type string that has both a getter and a setter method, which allows for getting and setting the value of the BookmarkState property.",
+            "nullable": true
+          },
+          "displayName": {
+            "type": "string",
+            "description": "A public property of type string that has both a getter and a setter method, which allows for getting and setting the value of the DisplayName property.",
+            "nullable": true
+          },
+          "type": {
+            "type": "string",
+            "description": "A public property of type string that has both a getter and a setter method, which allows for getting and setting the value of the Type property.",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false,
+        "description": "Class for representing the view of a bookmark."
+      },
+      "BrandingModel": {
+        "type": "object",
+        "properties": {
+          "brandName": {
+            "type": "string",
+            "description": "A public property of type string that has both a getter and a setter method, which allows for getting and setting the value of the BrandName property.",
+            "nullable": true
+          },
+          "logoUrl": {
+            "type": "string",
+            "description": "A public property of type string that has both a getter and a setter method, which allows for getting and setting the value of the LogoUrl property.",
+            "nullable": true
+          },
+          "imageExtension": {
+            "type": "string",
+            "description": "A public property of type string that has both a getter and a setter method, which allows for getting and setting the value of the ImageExtension property.",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false,
+        "description": "Class for storing information about branding."
+      },
+      "CloneReportRequest": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "nullable": true
+          },
+          "targetWorkspaceId": {
+            "type": "string",
+            "format": "uuid",
+            "nullable": true
+          },
+          "targetModelId": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "DashboardEmbedConfiguration": {
+        "type": "object",
+        "properties": {
+          "dashboardId": {
+            "type": "string",
+            "description": "A public property of type Guid (a unique identifier) that has both a getter and a setter method, which allows for getting and setting the value of the DashboardId property.",
+            "format": "uuid"
+          }
+        },
+        "additionalProperties": false,
+        "description": "Class for representing the configuration for embedding a dashboard."
+      },
+      "DashboardWithEmbedToken": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "A public property of type Guid (a unique identifier) that has both a getter and a setter method, which allows for getting and setting the value of the Id property.",
+            "format": "uuid"
+          },
+          "displayName": {
+            "type": "string",
+            "description": "A public property of type string that has both a getter and a setter method, which allows for getting and setting the value of the DisplayName property.",
+            "nullable": true
+          },
+          "webUrl": {
+            "type": "string",
+            "description": "A public property of type string that has both a getter and a setter method, which allows for getting and setting the value of the WebUrl property.",
+            "nullable": true
+          },
+          "embedUrl": {
+            "type": "string",
+            "description": "A public property of type nullable Guid (a unique identifier) that has both a getter and a setter method, which allows for getting and setting the value of the EmbedUrl property.",
+            "nullable": true
+          },
+          "embedToken": {
+            "$ref": "#/components/schemas/EmbedToken"
+          }
+        },
+        "additionalProperties": false,
+        "description": "Class for storing information about a dashboard along with an embed token."
+      },
+      "DatasetEmbedConfiguration": {
+        "type": "object",
+        "properties": {
+          "datasetId": {
+            "type": "string",
+            "description": "A public property of type Guid (a unique identifier) that has both a getter and a setter method, which allows for getting and setting the value of the DatasetId property.",
+            "format": "uuid"
+          }
+        },
+        "additionalProperties": false,
+        "description": "Class for representing the configuration for embedding a dataset."
+      },
+      "EmbedConfigReportRequestBody": {
+        "type": "object",
+        "properties": {
+          "reportIds": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "description": "A public property of type list of Guid that has both a getter and a setter method, which allows for getting and setting the value of the ReportIds property.",
+            "nullable": true
+          },
+          "datasetIds": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "description": "A public property of type list of Guid that has both a getter and a setter method, which allows for getting and setting the value of the DatasetIds property.",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false,
+        "description": "Class for storing details of an embed config report."
+      },
+      "EmbedToken": {
+        "type": "object",
+        "properties": {
+          "token": {
+            "type": "string",
+            "nullable": true
+          },
+          "tokenId": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "expiration": {
+            "type": "string",
+            "format": "date-time"
+          }
+        },
+        "additionalProperties": false
+      },
+      "EmbedTokenResponse": {
+        "type": "object",
+        "properties": {
+          "token": {
+            "type": "string",
+            "description": "A public property of type string that has both a getter and a setter method, which allows for getting and setting the value of the Token property.",
+            "nullable": true
+          },
+          "tokenId": {
+            "type": "string",
+            "description": "A public property of type Guid (a unique identifier) that has both a getter and a setter method, which allows for getting and setting the value of the TokenId property.",
+            "format": "uuid"
+          },
+          "expiration": {
+            "type": "string",
+            "description": "A public property of type DateTime that has both a getter and a setter method, which allows for getting and setting the value of the Expiration property.",
+            "format": "date-time"
+          },
+          "datasetWithRls": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "description": "A public property of type list of Guid that has both a getter and a setter method, which allows for getting and setting the value of the DatasetWithRls property.",
+            "nullable": true
+          },
+          "warningMessage": {
+            "type": "string",
+            "description": "A public property of type string that has both a getter and a setter method, which allows for getting and setting the value of the WarningMessage property.",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false,
+        "description": "Class for representing embed token response."
+      },
+      "Export": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "nullable": true
+          },
+          "createdDateTime": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "lastActionDateTime": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "reportId": {
+            "type": "string",
+            "format": "uuid",
+            "nullable": true
+          },
+          "reportName": {
+            "type": "string",
+            "nullable": true
+          },
+          "status": {
+            "$ref": "#/components/schemas/ExportState"
+          },
+          "percentComplete": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "resourceLocation": {
+            "type": "string",
+            "nullable": true
+          },
+          "resourceFileExtension": {
+            "type": "string",
+            "nullable": true
+          },
+          "expirationTime": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "ExportReportConfiguration": {
+        "required": [
+          "exportType",
+          "isPaginated",
+          "reportId"
+        ],
+        "type": "object",
+        "properties": {
+          "reportId": {
+            "type": "string",
+            "description": "A public property of type Guid (a unique identifier) that has both a getter and a setter method, which allows for getting and setting the value of the ReportId property.",
+            "format": "uuid"
+          },
+          "exportType": {
+            "type": "string",
+            "description": "A public property of type string that has both a getter and a setter method, which allows for getting and setting the value of the ExportType property."
+          },
+          "isPaginated": {
+            "type": "boolean",
+            "description": "A public property of type bool that has both a getter and a setter method, which allows for getting and setting the value of the paginated property."
+          },
+          "filter": {
+            "type": "string",
+            "nullable": true
+          },
+          "bookmarkState": {
+            "type": "string",
+            "description": "A public property of type string that has both a getter and a setter method, which allows for getting and setting the value of the BookmarkState property.",
+            "nullable": true
+          },
+          "pageName": {
+            "type": "string",
+            "description": "A public property of type string that has both a getter and a setter method, which allows for getting and setting the value of the PageName property.",
+            "nullable": true
+          },
+          "visualName": {
+            "type": "string",
+            "description": "A public property of type string that has both a getter and a setter method, which allows for getting and setting the value of the VisualName property.",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false,
+        "description": "Class for export file."
+      },
+      "ExportState": {
+        "enum": [
+          0,
+          1,
+          2,
+          3,
+          4
+        ],
+        "type": "integer",
+        "format": "int32"
+      },
+      "ExportStatus": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "A public property of type string that has both a getter and a setter method, which allows for getting and setting the value of the Id property.",
+            "nullable": true
+          },
+          "createdDateTime": {
+            "type": "string",
+            "description": "A public property of type nullable DateTime that has both a getter and a setter method, which allows for getting and setting the value of the CreatedDateTime property.",
+            "format": "date-time",
+            "nullable": true
+          },
+          "lastActionDateTime": {
+            "type": "string",
+            "description": "A public property of type nullable DateTime that has both a getter and a setter method, which allows for getting and setting the value of the LastActionDateTime property.",
+            "format": "date-time",
+            "nullable": true
+          },
+          "reportId": {
+            "type": "string",
+            "description": "A public property of type nullable Guid (a unique identifier) that has both a getter and a setter method, which allows for getting and setting the value of the ReportId property.",
+            "format": "uuid",
+            "nullable": true
+          },
+          "reportName": {
+            "type": "string",
+            "description": "A public property of type string that has both a getter and a setter method, which allows for getting and setting the value of the ReportName property.",
+            "nullable": true
+          },
+          "status": {
+            "type": "string",
+            "description": "A public property of type string that has both a getter and a setter method, which allows for getting and setting the value of the Status property.",
+            "nullable": true
+          },
+          "percentComplete": {
+            "type": "integer",
+            "description": "A public property of type nullable integer that has both a getter and a setter method, which allows for getting and setting the value of the PercentComplete property.",
+            "format": "int32",
+            "nullable": true
+          },
+          "resourceLocation": {
+            "type": "string",
+            "description": "A public property of type string that has both a getter and a setter method, which allows for getting and setting the value of the ResourceLocation property.",
+            "nullable": true
+          },
+          "resourceFileExtension": {
+            "type": "string",
+            "description": "A public property of type string that has both a getter and a setter method, which allows for getting and setting the value of the ResourceFileExtension property.",
+            "nullable": true
+          },
+          "expirationTime": {
+            "type": "string",
+            "description": "A public property of type nullable DateTime that has both a getter and a setter method, which allows for getting and setting the value of the ExpirationTime property.",
+            "format": "date-time",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false,
+        "description": "Class for export status."
+      },
+      "ExportStatusRequestParams": {
+        "required": [
+          "exportId",
+          "reportId"
+        ],
+        "type": "object",
+        "properties": {
+          "reportId": {
+            "type": "string",
+            "description": "A public property of type Guid (a unique identifier) that has both a getter and a setter method, which allows for getting and setting the value of the ReportId property.",
+            "format": "uuid"
+          },
+          "exportId": {
+            "type": "string",
+            "description": "A public property of type string that has both a getter and a setter method, which allows for getting and setting the value of the ExportId property."
+          }
+        },
+        "additionalProperties": false,
+        "description": "Class for export status."
+      },
+      "MemoryStream": {
+        "type": "object",
+        "properties": {
+          "canTimeout": {
+            "type": "boolean",
+            "readOnly": true
+          },
+          "readTimeout": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "writeTimeout": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "canRead": {
+            "type": "boolean",
+            "readOnly": true
+          },
+          "canSeek": {
+            "type": "boolean",
+            "readOnly": true
+          },
+          "canWrite": {
+            "type": "boolean",
+            "readOnly": true
+          },
+          "capacity": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "length": {
+            "type": "integer",
+            "format": "int64",
+            "readOnly": true
+          },
+          "position": {
+            "type": "integer",
+            "format": "int64"
+          }
+        },
+        "additionalProperties": false
+      },
+      "PrincipalType": {
+        "type": "object",
+        "additionalProperties": false
+      },
+      "ProblemDetails": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "type": "string",
+            "nullable": true
+          },
+          "title": {
+            "type": "string",
+            "nullable": true
+          },
+          "status": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "detail": {
+            "type": "string",
+            "nullable": true
+          },
+          "instance": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": { }
+      },
+      "Report": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "name": {
+            "type": "string",
+            "nullable": true
+          },
+          "datasetId": {
+            "type": "string",
+            "nullable": true
+          },
+          "appId": {
+            "type": "string",
+            "nullable": true
+          },
+          "description": {
+            "type": "string",
+            "nullable": true
+          },
+          "reportType": {
+            "type": "string",
+            "nullable": true
+          },
+          "webUrl": {
+            "type": "string",
+            "nullable": true
+          },
+          "embedUrl": {
+            "type": "string",
+            "nullable": true
+          },
+          "users": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ReportUser"
+            },
+            "nullable": true
+          },
+          "subscriptions": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Subscription"
+            },
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "ReportsFromDb": {
+        "type": "object",
+        "properties": {
+          "tenantAssetId": {
+            "type": "string",
+            "description": "A public property of type string that has both a getter and a setter method, which allows for getting and setting the value of the TenantId property.",
+            "nullable": true
+          },
+          "tenantId": {
+            "type": "string",
+            "description": "A public property of type string that has both a getter and a setter method, which allows for getting and setting the value of the TenantId property.",
+            "nullable": true
+          },
+          "assetId": {
+            "type": "string",
+            "description": "A public property of type Guid (a unique identifier) that has both a getter and a setter method, which allows for getting and setting the value of the AssetId property.",
+            "format": "uuid"
+          },
+          "assetType": {
+            "type": "string",
+            "description": "A public property of type string that has both a getter and a setter method, which allows for getting and setting the value of the AssetType property.",
+            "nullable": true
+          },
+          "assetName": {
+            "type": "string",
+            "description": "A public property of type string that has both a getter and a setter method, which allows for getting and setting the value of the AssetName property.",
+            "nullable": true
+          },
+          "embedUrl": {
+            "type": "string",
+            "description": "A public property of type string that has both a getter and a setter method, which allows for getting and setting the value of the EmbedUrl property.",
+            "nullable": true
+          },
+          "webUrl": {
+            "type": "string",
+            "description": "A public property of type string that has both a getter and a setter method, which allows for getting and setting the value of the WebUrl property.",
+            "nullable": true
+          },
+          "datasetId": {
+            "type": "string",
+            "description": "A public property of type string that has both a getter and a setter method, which allows for getting and setting the value of the DatasetId property.",
+            "nullable": true
+          },
+          "bindedDatasetId": {
+            "type": "string",
+            "description": "A public property of type string that has both a getter and a setter method, which allows for getting and setting the value of the BindedDatasetId property.",
+            "default": null,
+            "nullable": true
+          },
+          "reportType": {
+            "type": "string",
+            "description": "A public property of type string that has both a getter and a setter method, which allows for getting and setting the value of the ReportType property.",
+            "nullable": true
+          },
+          "reportPages": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "additionalProperties": { }
+            },
+            "description": "A public property of type List of object that has both a getter and a setter method, which allows for getting and setting the value of the ReportType property.",
+            "nullable": true
+          },
+          "isEffectiveIdentityRolesRequired": {
+            "type": "string",
+            "description": "A public property of type string that has both a getter and a setter method, which allows for getting and setting the value of the IsEffectiveIdentityRolesRequired property.",
+            "nullable": true
+          },
+          "isEffectiveIdentityRequired": {
+            "type": "string",
+            "description": "A public property of type string that has both a getter and a setter method, which allows for getting and setting the value of the IsEffectiveIdentityRequired property.",
+            "nullable": true
+          },
+          "roleName": {
+            "type": "string",
+            "description": "A public property of type string that has both a getter and a setter method, which allows for getting and setting the value of the RoleName property.",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false,
+        "description": "Class for Storing details about assets fetched from database."
+      },
+      "ReportSubscriptionGet": {
+        "type": "object",
+        "properties": {
+          "reportSubscriptionId": {
+            "type": "string",
+            "description": "A public property of type Guid (a unique identifier) that has both a getter and a setter method, which allows for getting and setting the value of the reportSubscriptionId property.",
+            "format": "uuid"
+          },
+          "subscriptionName": {
+            "type": "string",
+            "description": "A public property of type string that has both a getter and a setter method, which allows for getting and setting the value of the subscriptionName property.",
+            "nullable": true
+          },
+          "reportId": {
+            "type": "string",
+            "description": "A public property of type Guid (a unique identifier) that has both a getter and a setter method, which allows for getting and setting the value of the reportId property.",
+            "format": "uuid"
+          },
+          "bookmarkState": {
+            "type": "string",
+            "description": "A public property of type string that has both a getter and a setter method, which allows for getting and setting the value of the bookmarkState property.",
+            "nullable": true
+          },
+          "createdByUserId": {
+            "type": "string",
+            "description": "A public property of type Guid (a unique identifier) that has both a getter and a setter method, which allows for getting and setting the value of the createdByUserId property.",
+            "format": "uuid"
+          },
+          "createdByUserEmail": {
+            "type": "string",
+            "description": "A public property of type string that has both a getter and a setter method, which allows for getting and setting the value of the CreatedByUserEmail property.",
+            "nullable": true
+          },
+          "schedule": {
+            "type": "string",
+            "description": "A public property of type string that has both a getter and a setter method, which allows for getting and setting the value of the schedule property.",
+            "nullable": true
+          },
+          "subscribers": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "A public property of type list of string that has both a getter and a setter method, which allows for getting and setting the value of the subscribers property.",
+            "nullable": true
+          },
+          "subject": {
+            "type": "string",
+            "description": "A public property of type string that has both a getter and a setter method, which allows for getting and setting the value of the subject property.",
+            "nullable": true
+          },
+          "content": {
+            "type": "string",
+            "description": "A public property of type string that has both a getter and a setter method, which allows for getting and setting the value of the content property.",
+            "nullable": true
+          },
+          "isActive": {
+            "type": "boolean",
+            "description": "A public property of type bool that has both a getter and a setter method, which allows for getting and setting the value of the isActive property."
+          },
+          "reportPageName": {
+            "type": "string",
+            "description": "A public property of type string that has both a getter and a setter method, which allows for getting and setting the value of the reportPage property.",
+            "nullable": true
+          },
+          "startDateTime": {
+            "type": "string",
+            "description": "A public property of type string that has both a getter and a setter method, which allows for getting and setting the value of the StartDateTime property.",
+            "format": "date-time"
+          },
+          "endDateTime": {
+            "type": "string",
+            "description": "A public property of type string that has both a getter and a setter method, which allows for getting and setting the value of the EndDateTime property.",
+            "format": "date-time"
+          },
+          "timeZone": {
+            "type": "string",
+            "description": "A public property of type string that has both a getter and a setter method, which allows for getting and setting the value of the TimeZone(IST etc) property.",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false,
+        "description": "Class for storing details about report subscription."
+      },
+      "ReportSubscriptionPost": {
+        "type": "object",
+        "properties": {
+          "subscriptionName": {
+            "type": "string",
+            "description": "A public property of type string that has both a getter and a setter method, which allows for getting and setting the value of the subscriptionName property.",
+            "nullable": true
+          },
+          "bookmarkState": {
+            "type": "string",
+            "description": "A public property of type string that has both a getter and a setter method, which allows for getting and setting the value of the bookmarkState property.",
+            "nullable": true
+          },
+          "schedule": {
+            "type": "string",
+            "description": "A public property of type string that has both a getter and a setter method, which allows for getting and setting the value of the schedule property.",
+            "nullable": true
+          },
+          "subscribers": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "A public property of type list of string that has both a getter and a setter method, which allows for getting and setting the value of the subscribers property.",
+            "nullable": true
+          },
+          "subject": {
+            "type": "string",
+            "description": "A public property of type string that has both a getter and a setter method, which allows for getting and setting the value of the subject property.",
+            "nullable": true
+          },
+          "content": {
+            "type": "string",
+            "description": "A public property of type string that has both a getter and a setter method, which allows for getting and setting the value of the content property.",
+            "nullable": true
+          },
+          "isActive": {
+            "type": "boolean",
+            "description": "A public property of type bool that has both a getter and a setter method, which allows for getting and setting the value of the isActive property."
+          },
+          "reportPageName": {
+            "type": "string",
+            "description": "A public property of type string that has both a getter and a setter method, which allows for getting and setting the value of the reportPage property.",
+            "nullable": true
+          },
+          "startDateTime": {
+            "type": "string",
+            "description": "A public property of type string that has both a getter and a setter method, which allows for getting and setting the value of the StartDateTime property.",
+            "format": "date-time"
+          },
+          "endDateTime": {
+            "type": "string",
+            "description": "A public property of type string that has both a getter and a setter method, which allows for getting and setting the value of the EndDateTime property.",
+            "format": "date-time"
+          },
+          "timeZone": {
+            "type": "string",
+            "description": "A public property of type string that has both a getter and a setter method, which allows for getting and setting the value of the TimeZone(IST etc) property.",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false,
+        "description": "Class for representing a request to create a new subscription for a report."
+      },
+      "ReportTypeEnum": {
+        "enum": [
+          "all",
+          "report",
+          "paginated"
+        ],
+        "type": "string",
+        "description": "Enum for report type."
+      },
+      "ReportUser": {
+        "type": "object",
+        "properties": {
+          "emailAddress": {
+            "type": "string",
+            "nullable": true
+          },
+          "displayName": {
+            "type": "string",
+            "nullable": true
+          },
+          "identifier": {
+            "type": "string",
+            "nullable": true
+          },
+          "graphId": {
+            "type": "string",
+            "nullable": true
+          },
+          "userType": {
+            "type": "string",
+            "nullable": true
+          },
+          "principalType": {
+            "$ref": "#/components/schemas/PrincipalType"
+          },
+          "profile": {
+            "$ref": "#/components/schemas/ServicePrincipalProfile"
+          },
+          "reportUserAccessRight": {
+            "$ref": "#/components/schemas/ReportUserAccessRight"
+          }
+        },
+        "additionalProperties": false
+      },
+      "ReportUserAccessRight": {
+        "type": "object",
+        "additionalProperties": false
+      },
+      "ResponseModel": {
+        "type": "object",
+        "properties": {
+          "message": {
+            "type": "string",
+            "description": "A public property of type string that has both a getter and a setter method, which allows for getting and setting the value of the Message property.",
+            "default": "Success Message",
+            "nullable": true
+          },
+          "statusCode": {
+            "type": "integer",
+            "description": "A public property of type integer that has both a getter and a setter method, which allows for getting and setting the value of the StatusCode property.",
+            "format": "int32",
+            "default": 200
+          }
+        },
+        "additionalProperties": false,
+        "description": "Class for representing response."
+      },
+      "ServicePrincipalProfile": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "displayName": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "Subscription": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "title": {
+            "type": "string",
+            "nullable": true
+          },
+          "artifactId": {
+            "type": "string",
+            "format": "uuid",
+            "nullable": true
+          },
+          "artifactDisplayName": {
+            "type": "string",
+            "nullable": true
+          },
+          "subArtifactDisplayName": {
+            "type": "string",
+            "nullable": true
+          },
+          "artifactType": {
+            "type": "string",
+            "nullable": true
+          },
+          "isEnabled": {
+            "type": "boolean",
+            "nullable": true
+          },
+          "frequency": {
+            "type": "string",
+            "nullable": true
+          },
+          "startDate": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "endDate": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "linkToContent": {
+            "type": "boolean",
+            "nullable": true
+          },
+          "previewImage": {
+            "type": "boolean",
+            "nullable": true
+          },
+          "attachmentFormat": {
+            "type": "string",
+            "nullable": true
+          },
+          "users": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/SubscriptionUser"
+            },
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "SubscriptionUser": {
+        "type": "object",
+        "properties": {
+          "emailAddress": {
+            "type": "string",
+            "nullable": true
+          },
+          "displayName": {
+            "type": "string",
+            "nullable": true
+          },
+          "identifier": {
+            "type": "string",
+            "nullable": true
+          },
+          "graphId": {
+            "type": "string",
+            "nullable": true
+          },
+          "userType": {
+            "type": "string",
+            "nullable": true
+          },
+          "principalType": {
+            "$ref": "#/components/schemas/PrincipalType"
+          },
+          "profile": {
+            "$ref": "#/components/schemas/ServicePrincipalProfile"
+          }
+        },
+        "additionalProperties": false
+      },
+      "TenantDetailView": {
+        "type": "object",
+        "properties": {
+          "tenantId": {
+            "type": "string",
+            "description": "A public property of type nullable Guid (a unique identifier) that has both a getter and a setter method, which allows for getting and setting the value of the tenantId property.",
+            "format": "uuid",
+            "nullable": true
+          },
+          "tenantName": {
+            "type": "string",
+            "description": "A public property of type string that has both a getter and a setter method, which allows for getting and setting the value of the tenantName property.",
+            "nullable": true
+          },
+          "isOwner": {
+            "type": "boolean",
+            "description": "A public property of type bool that has both a getter and a setter method, which allows for getting and setting the value of the isOwner property."
+          },
+          "assets": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/AssetDetailView"
+            },
+            "description": "A public property of type list of AssetDetailView that has both a getter and a setter method, which allows for getting and setting the value of the Assets property.",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false,
+        "description": "Class for represting the view of a tenant."
+      },
+      "Theme": {
+        "type": "object",
+        "properties": {
+          "themeId": {
+            "type": "string",
+            "description": "A public property of type Guid (a unique identifier) that has both a getter and a setter method, which allows for getting and setting the value of the themeId property.",
+            "format": "uuid"
+          },
+          "themeName": {
+            "type": "string",
+            "description": "A public property of type string that has both a getter and a setter method, which allows for getting and setting the value of the themeName property.",
+            "nullable": true
+          },
+          "themeObject": {
+            "type": "object",
+            "additionalProperties": { },
+            "description": "A public property of type ExpandoObject that has both a getter and a setter method, which allows for getting and setting the value of the themeObject property.",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false,
+        "description": "Class for storing details about theme."
+      },
+      "UpdateBookmarkModel": {
+        "type": "object",
+        "properties": {
+          "bookmarkState": {
+            "type": "string",
+            "description": "A public property of type nullable string that has both a getter and a setter method, which allows for getting and setting the value of the BookmarkState property.",
+            "nullable": true
+          },
+          "displayName": {
+            "type": "string",
+            "description": "A public property of type nullable string that has both a getter and a setter method, which allows for getting and setting the value of the DisplayName property.",
+            "nullable": true
+          },
+          "type": {
+            "type": "string",
+            "description": "A public property of type nullable string that has both a getter and a setter method, which allows for getting and setting the value of the Type property.",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false,
+        "description": "Class for updating the properties of bookmark."
+      },
+      "UserDetailView": {
+        "type": "object",
+        "properties": {
+          "userId": {
+            "type": "string",
+            "description": "A public property of type nullable Guid (a unique identifier) that has both a getter and a setter method, which allows for getting and setting the value of the userId property.",
+            "format": "uuid",
+            "nullable": true
+          },
+          "themeDetails": {
+            "$ref": "#/components/schemas/Theme"
+          },
+          "tenants": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/TenantDetailView"
+            },
+            "description": "A public property of type list of TenantDetailView that has both a getter and a setter method, which allows for getting and setting the value of the tenants property.",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false,
+        "description": "Class for representing the view of user detail."
+      }
+    },
+    "securitySchemes": {
+      "Bearer": {
+        "type": "http",
+        "description": "Please enter a valid token",
+        "scheme": "Bearer",
+        "bearerFormat": "JWT"
+      }
+    }
+  },
+  "security": [
+    {
+      "Bearer": [ ]
+    }
+  ]
+}

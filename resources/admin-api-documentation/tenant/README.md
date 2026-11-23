@@ -1,0 +1,31 @@
+# Tenant APIs
+
+- Assigns tenant-level access to a user of the requested tenant based on the specified role.
+- Binds a dataset to a report identified by their respective IDs.
+- Checks the availability of a name for onboarding a given tenant.
+- Checks the availability of an updated name for the requested tenant.
+- Creates a new tenant with a unique name provided by the client.
+- Deletes an existing tenant identified by its ID.
+- Marked asset ID as report template for a specified tenants.
+- Onboards an existing Power BI workspace as a logical tenant, ensuring the service principal has been granted 'Admin' access beforehand.
+- Onboards users to an existing tenant with provided user details.
+- Refreshes an existing dataset.
+- Refreshes asset details for a specified tenant.
+- Retrieves a list of Power BI workspaces available for onboarding as logical tenants.
+- Retrieves a list of all available tenants.
+- Retrieves a list of all users who are part of a specified tenant.
+- Retrieves a list of bound reports and datasets for a specified tenant identified by its ID.
+- Retrieves asset details for a specified tenant based on the provided tenant ID.
+- Retrieves details of a specific tenant identified by the provided tenant ID.
+- Retrieves details of users available for onboarding to the specified tenant.
+- Retrieves the bound report and dataset for a specified tenant and report identified by their respective IDs.
+- Retrieves users of an existing tenant who have tenant-level roles based on the specified role name.
+- Revokes tenant-level user access from the requested tenant.
+- UnMarked asset ID as report template for a specified tenants.
+- Updates asset properties (report name, description, and/or asset visibility) for a specified tenant.
+- Updates the default theme assigned to an existing tenant identified by its ID.
+- Updates the export type configuration for a specific tenant.
+- Updates the export type for a specific asset in a tenant.
+- Updates the name of an existing tenant identified by its ID.
+- Updates the tenant-level user access in the requested tenant based on the specified role.
+- Gets PowerBI workspace name for the EmbedFAST tenant ID.
