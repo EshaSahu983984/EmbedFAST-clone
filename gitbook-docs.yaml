@@ -1,0 +1,11 @@
+$schema: https://api.gitbook.com/gitbook-docs.yaml
+site:
+  title: EmbedFAST Documentation
+  structure:
+    - type: space
+      key: embedfast-docs
+      title: EmbedFAST Documentation
+      path: docs
+      default: true
+      content:
+        directory: ./
