@@ -76,7 +76,9 @@ layout:
 
 ### Other Enhancements  
 - Updated all database objects to use **UNIQUEIDENTIFIER** for ID columns to ensure consistency  
-- Enhanced the **Edit Semantic Model feature UI** to align with the overall portal look and feel and ensure consistency with other features  
+- Enhanced the **Edit Semantic Model feature UI** to align with the overall portal look and feel and ensure consistency with other features
+- On Home, Reports now appear before Favorites in both standard and Grid View layouts.
+- Export History now explains how to search for an export and download it, and its access message identifies the page and advises users to ask their admin for access.
 
 ---
 
