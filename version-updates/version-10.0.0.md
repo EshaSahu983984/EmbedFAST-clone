@@ -74,6 +74,9 @@ layout:
 - The Admin Assets Grid UI has been redesigned to move all **asset-specific configurations** into a dedicated **Settings panel**  
 - This enhancement improves usability and readability by keeping the grid focused on key information while providing easy access to detailed settings  
 
+### Navigation Improvements
+- In deeply nested All Assets folders, intermediate breadcrumb levels are collapsed behind an expandable ellipsis, keeping the current location and its parent visible while allowing users to reveal the full path.
+
 ### Other Enhancements  
 - Updated all database objects to use **UNIQUEIDENTIFIER** for ID columns to ensure consistency  
 - Enhanced the **Edit Semantic Model feature UI** to align with the overall portal look and feel and ensure consistency with other features  
