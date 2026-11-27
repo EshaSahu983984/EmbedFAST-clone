@@ -77,6 +77,7 @@ layout:
 ### Other Enhancements  
 - Updated all database objects to use **UNIQUEIDENTIFIER** for ID columns to ensure consistency  
 - Enhanced the **Edit Semantic Model feature UI** to align with the overall portal look and feel and ensure consistency with other features  
+- Improved User View navigation with collapsible deep-folder breadcrumbs, and clarified Export History search and download guidance  
 
 ---
 
