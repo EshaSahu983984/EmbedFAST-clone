@@ -74,6 +74,11 @@ layout:
 - The Admin Assets Grid UI has been redesigned to move all **asset-specific configurations** into a dedicated **Settings panel**  
 - This enhancement improves usability and readability by keeping the grid focused on key information while providing easy access to detailed settings  
 
+### User View Navigation and Export History
+- Home now displays **Reports** before **Favorites** in both standard and Grid View layouts.
+- Deep folder breadcrumbs collapse intermediate levels behind an expandable ellipsis.
+- Export History provides search and download guidance and clarifies the message shown when a user lacks access.
+
 ### Other Enhancements  
 - Updated all database objects to use **UNIQUEIDENTIFIER** for ID columns to ensure consistency  
 - Enhanced the **Edit Semantic Model feature UI** to align with the overall portal look and feel and ensure consistency with other features  
